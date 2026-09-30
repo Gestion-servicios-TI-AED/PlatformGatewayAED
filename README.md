@@ -58,9 +58,20 @@ y conectar a la base. Después: `http://localhost:8080/` (landing) y
 
 ## Producción (Coolify)
 
-Todavía no desplegado — pendiente de decidir si el gateway corre como un
-servicio Docker propio en Coolify (este repo, tal cual) o si se logra el
-mismo ruteo con las reglas/etiquetas de Traefik que Coolify ya administra
-por detrás de cada servicio, sin un contenedor nuevo. La lógica de ruteo
-(prefijo → upstream, con el prefijo recortado) es la misma en cualquiera de
-los dos casos — no se pierde trabajo eligiendo una u otra más adelante.
+Desplegado como su propio recurso Docker en Coolify (Build Pack: Dockerfile,
+Base Directory `/gateway`, Dockerfile Location `/Dockerfile`, Ports Exposes
+`80`). Coolify usa Caddy como proxy de borde (no Traefik).
+
+**`HRMS_UPSTREAM` en producción es el DOMINIO PÚBLICO de HRMS** (ej.
+`xxxxx.tu-servidor.sslip.io`), NO `hrms:3000` como en local — descubierto
+en vivo (2026-09-30): Coolify aísla cada "Project" en su propia red Docker,
+y el gateway y HRMS quedaron en proyectos distintos, así que el nombre de
+red interna ("hrms") nunca resuelve (`host not found in upstream`). Salir
+por el dominio público de HRMS funciona sin importar en qué proyecto esté
+cada app — el tráfico vuelve a entrar por el mismo Caddy del servidor, que
+lo rutea al contenedor correcto por Host header (por eso
+`proxy_set_header Host ${HRMS_UPSTREAM}` en vez de `$host` — ver el
+comentario en `nginx.conf.template`). Si en algún momento se ponen todas
+las apps bajo el mismo Project de Coolify, se podría volver a nombres de
+red interna, pero no es necesario: el dominio público funciona igual de
+bien y es más robusto a como esté organizado Coolify.

@@ -36,6 +36,15 @@ server {
     }
 
     # --- RR.HH. (HRMS) ---
+    # HRMS_UPSTREAM es el DOMINIO PUBLICO que Coolify le asigna a HRMS (ej.
+    # xxxxx.tu-servidor.sslip.io), NO un nombre de red interna de Docker --
+    # en Coolify, dos recursos en proyectos distintos NO comparten red
+    # interna (cada proyecto tiene la suya, aislada), asi que resolver por
+    # nombre interno ("hrms") falla con "host not found in upstream". Salir
+    # por el dominio publico funciona sin importar en que proyecto este
+    # cada app -- el trafico vuelve a entrar por el proxy (Caddy) del mismo
+    # servidor, que lo rutea al contenedor correcto.
+    #
     # La barra final en location Y en proxy_pass es lo que hace que nginx
     # saque el prefijo /rrhh antes de reenviar -- sin la barra final en
     # proxy_pass, nginx reenviaria la URL completa con el prefijo incluido,
@@ -43,13 +52,15 @@ server {
     location /rrhh/ {
         proxy_pass http://${HRMS_UPSTREAM}/;
         proxy_http_version 1.1;
-        proxy_set_header Host $host;
+        # Host = el dominio REAL de HRMS (no el del gateway) -- Caddy rutea
+        # por Host header, si mandamos el del gateway no sabe a que
+        # contenedor mandarlo. El navegador nunca ve este header (es
+        # servidor-a-servidor), asi que las cookies de HRMS siguen quedando
+        # scoped al dominio del gateway, que es lo que el navegador si ve.
+        proxy_set_header Host ${HRMS_UPSTREAM};
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        # Necesario para que las cookies de sesion de HRMS (httpOnly) viajen
-        # bien -- sin esto el navegador podria rechazarlas por el cambio de
-        # host visible vs. el host real del contenedor.
         proxy_cookie_path / /rrhh/;
     }
 
@@ -60,7 +71,7 @@ server {
     # location /cartera/ {
     #     proxy_pass http://${CARTERA_UPSTREAM}/;
     #     proxy_http_version 1.1;
-    #     proxy_set_header Host $host;
+    #     proxy_set_header Host ${CARTERA_UPSTREAM};
     #     proxy_set_header X-Real-IP $remote_addr;
     #     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     #     proxy_set_header X-Forwarded-Proto $scheme;
