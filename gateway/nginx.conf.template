@@ -1,0 +1,69 @@
+# Gateway de la Plataforma AED -- ruteo por PATH bajo un solo dominio.
+#
+# Cada app de AED sigue desplegandose exactamente igual que hoy (su propio
+# contenedor, un solo puerto que sirve frontend + /api, mismo patron que
+# backend/Dockerfile de HRMS) -- este gateway no le exige NINGUN cambio de
+# codigo a ninguna app. Lo unico que hace es: mirar el primer segmento de la
+# URL (/rrhh, /cartera, etc.), sacarlo, y reenviar el resto tal cual al
+# contenedor de esa app -- que nunca se entera de que vive bajo un prefijo,
+# sigue viendo peticiones a "/" y "/api" como si el gateway no existiera.
+#
+# Los nombres de host de cada upstream vienen de variables de entorno
+# (resueltas por el propio entrypoint de la imagen oficial de nginx via
+# envsubst, ver Dockerfile) para no hardcodear nombres de servicio distintos
+# entre desarrollo local y Coolify.
+
+resolver 127.0.0.11 valid=30s;
+
+server {
+    listen 80;
+    server_name _;
+
+    # Pagina de inicio -- PLACEHOLDER a proposito (alcance de esta primera
+    # etapa: solo el ruteo, sin el shell/nav compartido todavia, ver
+    # README.md). Cuando se construya el shell real, esto deja de servir un
+    # archivo estatico y pasa a servir esa app.
+    location = / {
+        root /usr/share/nginx/html;
+        # try_files en vez de "index index.html": la directiva "index" hace
+        # un re-lookup interno de ubicacion para la URI resultante
+        # (/index.html), que no matchea este "location = /" (exact match) y
+        # termina cayendo al root por defecto compilado de nginx
+        # (/etc/nginx/html, que no existe en esta imagen) -- 404 real,
+        # encontrado probando esto en serio, no una suposicion. try_files
+        # sirve el archivo DENTRO de este mismo location, sin ese problema.
+        try_files /index.html =404;
+    }
+
+    # --- RR.HH. (HRMS) ---
+    # La barra final en location Y en proxy_pass es lo que hace que nginx
+    # saque el prefijo /rrhh antes de reenviar -- sin la barra final en
+    # proxy_pass, nginx reenviaria la URL completa con el prefijo incluido,
+    # y HRMS (que no sabe de este prefijo) devolveria 404.
+    location /rrhh/ {
+        proxy_pass http://${HRMS_UPSTREAM}/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        # Necesario para que las cookies de sesion de HRMS (httpOnly) viajen
+        # bien -- sin esto el navegador podria rechazarlas por el cambio de
+        # host visible vs. el host real del contenedor.
+        proxy_cookie_path / /rrhh/;
+    }
+
+    # --- Los demas proyectos se agregan aca con el mismo patron, uno por
+    #     uno, a medida que se conecten al gateway. Ejemplo (comentado
+    #     hasta que exista el upstream real):
+    #
+    # location /cartera/ {
+    #     proxy_pass http://${CARTERA_UPSTREAM}/;
+    #     proxy_http_version 1.1;
+    #     proxy_set_header Host $host;
+    #     proxy_set_header X-Real-IP $remote_addr;
+    #     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #     proxy_set_header X-Forwarded-Proto $scheme;
+    #     proxy_cookie_path / /cartera/;
+    # }
+}

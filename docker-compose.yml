@@ -1,0 +1,47 @@
+# Prueba local del gateway contra la imagen REAL de produccion de HRMS (no
+# el modo dev de npm run dev) -- para que la validacion sea fiel a como se
+# va a ver de verdad en Coolify: un solo puerto por app, sirviendo frontend
+# + /api juntos, exactamente como describe backend/Dockerfile de HRMS.
+#
+# Uso: docker compose up --build
+# Despues: abrir http://localhost:8080/rrhh/
+
+services:
+  hrms:
+    build:
+      context: ../3. SISTEMA DE GESTIÓN DE RECURSOS HUMANOS
+      dockerfile: Dockerfile
+      args:
+        # Build-args, se incrustan en el bundle del frontend en tiempo de
+        # compilacion (ver los comentarios en el Dockerfile de HRMS) -- el
+        # gateway sirve esta app bajo /rrhh, asi que tanto la API como las
+        # referencias a assets/rutas del router tienen que llevar ese mismo
+        # prefijo.
+        VITE_API_BASE_URL: /rrhh/api
+        VITE_BASE_PATH: /rrhh/
+    environment:
+      # Mismas variables que backend/.env de HRMS -- sin estas, el
+      # contenedor arranca pero no puede migrar/conectar a Postgres.
+      PGHOST: ${PGHOST}
+      PGPORT: ${PGPORT}
+      PGUSER: ${PGUSER}
+      PGPASSWORD: ${PGPASSWORD}
+      PGDATABASE: ${PGDATABASE}
+      CORS_ORIGIN: http://localhost:8080
+      JWT_SECRET: ${JWT_SECRET}
+      BITAKORA_API_URL: ${BITAKORA_API_URL}
+      # GOOGLE_DRIVE_* son opcionales (ver backend/src/config/env.js) -- se
+      # omiten a proposito acá: si vienen definidas pero vacías ("") fallan
+      # la validación zod (.min(1)), que exige "undefined" de verdad, no un
+      # string vacío. No hacen falta para probar el ruteo del gateway.
+    expose:
+      - "3000"
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "8080:80"
+    environment:
+      HRMS_UPSTREAM: hrms:3000
+    depends_on:
+      - hrms
