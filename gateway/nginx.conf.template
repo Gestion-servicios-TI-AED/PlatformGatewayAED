@@ -50,8 +50,19 @@ server {
     # proxy_pass, nginx reenviaria la URL completa con el prefijo incluido,
     # y HRMS (que no sabe de este prefijo) devolveria 404.
     location /rrhh/ {
-        proxy_pass http://${HRMS_UPSTREAM}/;
+        # https:// (no http://): si le hablamos por http, Caddy del lado de
+        # HRMS devuelve un redirect 301/308 a su propio dominio en https --
+        # proxy_pass NO sigue redirects, los reenvia tal cual al navegador,
+        # que los sigue y termina saliendose del gateway por completo
+        # (bug real encontrado en produccion, 2026-09-30: click en "Recursos
+        # Humanos" en la landing terminaba en el dominio de HRMS directo).
+        proxy_pass https://${HRMS_UPSTREAM}/;
         proxy_http_version 1.1;
+        # Obligatorio al usar una variable como destino de un proxy_pass
+        # https -- sin esto nginx no manda SNI, y Caddy (que sirve varios
+        # dominios en el mismo IP:443) puede no rutear al certificado/sitio
+        # correcto.
+        proxy_ssl_server_name on;
         # Host = el dominio REAL de HRMS (no el del gateway) -- Caddy rutea
         # por Host header, si mandamos el del gateway no sabe a que
         # contenedor mandarlo. El navegador nunca ve este header (es
@@ -69,8 +80,9 @@ server {
     #     hasta que exista el upstream real):
     #
     # location /cartera/ {
-    #     proxy_pass http://${CARTERA_UPSTREAM}/;
+    #     proxy_pass https://${CARTERA_UPSTREAM}/;
     #     proxy_http_version 1.1;
+    #     proxy_ssl_server_name on;
     #     proxy_set_header Host ${CARTERA_UPSTREAM};
     #     proxy_set_header X-Real-IP $remote_addr;
     #     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
