@@ -4,7 +4,7 @@
 # contenedor, un solo puerto que sirve frontend + /api, mismo patron que
 # backend/Dockerfile de HRMS) -- este gateway no le exige NINGUN cambio de
 # codigo a ninguna app. Lo unico que hace es: mirar el primer segmento de la
-# URL (/rrhh, /cartera, etc.), sacarlo, y reenviar el resto tal cual al
+# URL (/hrsm, /cartera, etc.), sacarlo, y reenviar el resto tal cual al
 # contenedor de esa app -- que nunca se entera de que vive bajo un prefijo,
 # sigue viendo peticiones a "/" y "/api" como si el gateway no existiera.
 #
@@ -46,10 +46,10 @@ server {
     # servidor, que lo rutea al contenedor correcto.
     #
     # La barra final en location Y en proxy_pass es lo que hace que nginx
-    # saque el prefijo /rrhh antes de reenviar -- sin la barra final en
+    # saque el prefijo /hrsm antes de reenviar -- sin la barra final en
     # proxy_pass, nginx reenviaria la URL completa con el prefijo incluido,
     # y HRMS (que no sabe de este prefijo) devolveria 404.
-    location /rrhh/ {
+    location /hrsm/ {
         # https:// (no http://): si le hablamos por http, Caddy del lado de
         # HRMS devuelve un redirect 301/308 a su propio dominio en https --
         # proxy_pass NO sigue redirects, los reenvia tal cual al navegador,
@@ -72,7 +72,7 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_cookie_path / /rrhh/;
+        proxy_cookie_path / /hrsm/;
     }
 
     # --- Los demas proyectos se agregan aca con el mismo patron, uno por

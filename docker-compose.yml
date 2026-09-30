@@ -4,7 +4,7 @@
 # + /api juntos, exactamente como describe backend/Dockerfile de HRMS.
 #
 # Uso: docker compose up --build
-# Despues: abrir http://localhost:8080/rrhh/
+# Despues: abrir http://localhost:8080/hrsm/
 
 services:
   hrms:
@@ -14,11 +14,11 @@ services:
       args:
         # Build-args, se incrustan en el bundle del frontend en tiempo de
         # compilacion (ver los comentarios en el Dockerfile de HRMS) -- el
-        # gateway sirve esta app bajo /rrhh, asi que tanto la API como las
+        # gateway sirve esta app bajo /hrsm, asi que tanto la API como las
         # referencias a assets/rutas del router tienen que llevar ese mismo
         # prefijo.
-        VITE_API_BASE_URL: /rrhh/api
-        VITE_BASE_PATH: /rrhh/
+        VITE_API_BASE_URL: /hrsm/api
+        VITE_BASE_PATH: /hrsm/
     environment:
       # Mismas variables que backend/.env de HRMS -- sin estas, el
       # contenedor arranca pero no puede migrar/conectar a Postgres.

@@ -11,7 +11,7 @@ si hace falta el razonamiento completo) — resumen:
   frontend.
 - **Etapa 1 (esto, lo que hay hoy en este repo): gateway con ruteo por
   path.** Un solo dominio, cada app bajo su propio prefijo
-  (`/rrhh`, `/cartera`, ...), reenviado tal cual al contenedor de esa app
+  (`/hrsm`, `/cartera`, ...), reenviado tal cual al contenedor de esa app
   — CERO cambios al backend de cada app, solo 2 build-args nuevos en el
   frontend (`VITE_API_BASE_URL`, `VITE_BASE_PATH`) para que sepa que no
   vive en la raíz. Esto da un dominio unificado, pero **cruzar de una app a
@@ -39,7 +39,7 @@ si hace falta el razonamiento completo) — resumen:
 3. En su `Dockerfile`, agregar el `ARG`/`ENV` `VITE_BASE_PATH` junto al que
    ya tenga para `VITE_API_BASE_URL` (ver el Dockerfile de HRMS).
 4. Acá en `gateway/nginx.conf.template`: agregar un bloque `location
-   /esa-app/` nuevo (copiar el de `/rrhh/`, cambiar el nombre de la
+   /esa-app/` nuevo (copiar el de `/hrsm/`, cambiar el nombre de la
    variable de upstream).
 5. Pasarle a esa app, al buildear su imagen, `VITE_API_BASE_URL=/esa-app/api`
    y `VITE_BASE_PATH=/esa-app/`.
@@ -54,7 +54,7 @@ Requiere las variables de entorno reales de HRMS disponibles en el shell
 (`PGHOST`, `PGPASSWORD`, etc. — las mismas de `3. SISTEMA DE GESTIÓN DE
 RECURSOS HUMANOS/backend/.env`) para que el contenedor de HRMS pueda migrar
 y conectar a la base. Después: `http://localhost:8080/` (landing) y
-`http://localhost:8080/rrhh/` (HRMS real, funcionando bajo el prefijo).
+`http://localhost:8080/hrsm/` (HRMS real, funcionando bajo el prefijo).
 
 ## Producción (Coolify)
 
