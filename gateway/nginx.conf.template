@@ -35,10 +35,18 @@ server {
         try_files /index.html =404;
     }
 
-    # Logo de la landing (archivo estatico propio del gateway).
-    location = /aed-logo.png {
+    # Estaticos de la landing (build de Vite: /assets/*, logo, favicon).
+    # Cualquier otra ruta que no sea una app (/hrsm/, ...) da 404 real.
+    location / {
         root /usr/share/nginx/html;
-        try_files /aed-logo.png =404;
+        try_files $uri =404;
+    }
+
+    # Los assets de Vite llevan hash en el nombre: cache largo es seguro.
+    location /assets/ {
+        root /usr/share/nginx/html;
+        expires 1y;
+        add_header Cache-Control "public, immutable";
     }
 
     # --- RR.HH. (HRMS) ---

@@ -30,6 +30,15 @@ si hace falta el razonamiento completo) — resumen:
   `auth.azure.js` de Solicitudes de Contratación como referencia, ya tiene
   parte de esto armado.
 
+## Landing (React + Vite)
+
+`gateway/` es una app React + Vite (mismo stack que las demás apps de AED,
+CSS Modules + tokens de marca + `lucide-react`). El `Dockerfile` la compila y
+sirve el resultado con nginx, que además hace el ruteo por path. El catálogo
+de tarjetas vive en `gateway/src/apps.js`: para habilitar una app, cambiar su
+`estado` a `'disponible'` y poner su `href`. Desarrollo: `cd gateway && npm
+install && npm run dev` (puerto 5190).
+
 ## Cómo se conecta una app nueva al gateway
 
 1. En el `vite.config.js` del frontend de esa app, confirmar que lee
@@ -41,7 +50,8 @@ si hace falta el razonamiento completo) — resumen:
 4. Acá en `gateway/nginx.conf.template`: agregar un bloque `location
    /esa-app/` nuevo (copiar el de `/hrsm/`, cambiar el nombre de la
    variable de upstream).
-5. Pasarle a esa app, al buildear su imagen, `VITE_API_BASE_URL=/esa-app/api`
+5. En `gateway/src/apps.js`, marcar su tarjeta como `disponible` con su `href`.
+6. Pasarle a esa app, al buildear su imagen, `VITE_API_BASE_URL=/esa-app/api`
    y `VITE_BASE_PATH=/esa-app/`.
 
 ## Probar localmente
