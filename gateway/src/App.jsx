@@ -7,7 +7,7 @@ import { APPS } from './apps.js';
 import styles from './App.module.css';
 
 function normalizar(texto) {
-  return texto.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  return texto.normalize('NFD').replace(/[0300-036f]/g, '').toLowerCase();
 }
 
 function AppCard({ app }) {
