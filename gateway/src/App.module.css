@@ -9,8 +9,6 @@
 }
 
 .headerInner {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 0.9rem 2rem;
   display: flex;
   align-items: center;
@@ -40,8 +38,6 @@
 .main {
   flex: 1;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 0 2rem 3rem;
 }
 
@@ -347,9 +343,7 @@
 }
 
 .footer {
-  max-width: 1200px;
   width: 100%;
-  margin: 0 auto;
   padding: 1.5rem 2rem 2rem;
   display: flex;
   justify-content: space-between;
