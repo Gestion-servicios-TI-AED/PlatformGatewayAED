@@ -348,6 +348,17 @@ sparingly and only for elements that are genuinely floating above the page flow.
 row, a form section), it doesn't get a shadow. Depth is earned by z-index, not applied by
 default.
 
+**The Portal Landing Exception** (2026-10-01, explicit user decision on Plataforma AED — the
+gateway's home page). The landing is a marketing-adjacent portal, not a dense working screen,
+and the user chose the richer card system over the flat one after trying both. For this one
+page only, the rules below are relaxed: cards may carry a soft shadow and a lift-on-hover
+(Floating-Only Rule), live cards may carry a 3px Gradación aed line on their top edge and the
+page a 4px Gradación aed bar above the header (a 3rd/4th settled location), the hero may use
+a Display-scale headline with a short eyebrow label, and cards may be the icon + heading +
+text pattern the Don'ts list otherwise rejects. Everything else (neutral tokens, typography
+families, status colors, fluid width) still applies. **This exception does not carry over to
+the apps themselves** — dense screens inside HRMS/Solicitudes/etc. keep every original rule.
+
 ### Motion & Scroll
 
 Two speeds cover the whole product: `duration-fast` (120ms) for hover/focus/active-state

@@ -1,8 +1,5 @@
 import { useMemo, useState } from 'react';
-import { ReactLenis } from 'lenis/react';
-import { ArrowUpRight } from 'lucide-react';
-import { Badge } from './components/ui/Badge.jsx';
-import { TextInput } from './components/ui/Field.jsx';
+import { ArrowUpRight, Clock, Search } from 'lucide-react';
 import { APPS } from './apps.js';
 import styles from './App.module.css';
 
@@ -18,26 +15,33 @@ function AppCard({ app }) {
     <>
       <div className={styles.cardTop}>
         <span className={styles.icon}>
-          <Icono size={20} strokeWidth={1.75} aria-hidden="true" />
+          <Icono size={22} strokeWidth={1.8} aria-hidden="true" />
         </span>
         {disponible ? (
-          <Badge variant="success" dot>
-            Disponible
-          </Badge>
+          <span className={`${styles.badge} ${styles.badgeLive}`}>
+            <span className={styles.dot} aria-hidden="true" /> Disponible
+          </span>
         ) : (
-          <Badge variant="neutral">Próximamente</Badge>
+          <span className={`${styles.badge} ${styles.badgeSoon}`}>
+            <Clock size={12} strokeWidth={2.2} aria-hidden="true" /> Próximamente
+          </span>
         )}
       </div>
       <div className={styles.cardBody}>
+        <span className={styles.area}>{app.area}</span>
         <h3 className={styles.cardTitle}>{app.nombre}</h3>
         <p className={styles.cardText}>{app.descripcion}</p>
       </div>
-      {disponible && (
-        <span className={styles.cardAction}>
-          Abrir aplicación
-          <ArrowUpRight size={16} strokeWidth={1.75} className={styles.arrow} aria-hidden="true" />
-        </span>
-      )}
+      <div className={styles.cardFoot}>
+        {disponible ? (
+          <>
+            <span>Abrir aplicación</span>
+            <ArrowUpRight size={16} strokeWidth={2.2} className={styles.arrow} aria-hidden="true" />
+          </>
+        ) : (
+          <span>En preparación</span>
+        )}
+      </div>
     </>
   );
 
@@ -59,7 +63,10 @@ function Seccion({ titulo, apps }) {
   if (apps.length === 0) return null;
   return (
     <section className={styles.section}>
-      <h2 className={styles.sectionTitle}>{titulo}</h2>
+      <div className={styles.sectionHead}>
+        <h2 className={styles.sectionTitle}>{titulo}</h2>
+        <span className={styles.count}>{apps.length}</span>
+      </div>
       <div className={styles.grid}>
         {apps.map((app) => (
           <AppCard key={app.id} app={app} />
@@ -80,32 +87,52 @@ export default function App() {
 
   const disponibles = filtradas.filter((a) => a.estado === 'disponible');
   const proximamente = filtradas.filter((a) => a.estado !== 'disponible');
+  const totalDisponibles = APPS.filter((a) => a.estado === 'disponible').length;
 
   return (
-    <div className={styles.shell}>
-      <header className={styles.topbar}>
-        <div className={styles.brand}>
-          <img className={styles.brandLogo} src="/aed-logo.png" alt="aed" />
-          <span className={styles.brandDivider} aria-hidden="true" />
-          <span className={styles.brandName}>Plataforma</span>
+    <>
+      <div className={styles.accent} aria-hidden="true" />
+      <header className={styles.header}>
+        <div className={styles.headerInner}>
+          <img className={styles.logo} src="/aed-logo.png" alt="AED" />
+          <span className={styles.divider} aria-hidden="true" />
+          <span className={styles.product}>Plataforma</span>
         </div>
       </header>
 
-      <ReactLenis root={false} className={styles.scrollArea} options={{ smoothWheel: true }}>
-        <div className={styles.pageHeader}>
-          <div>
-            <h1 className={styles.title}>Aplicaciones</h1>
-            <p className={styles.hint}>Elige la aplicación a la que quieres acceder.</p>
+      <main className={styles.main}>
+        <section className={styles.hero}>
+          <p className={styles.eyebrow}>Portal corporativo</p>
+          <h1 className={styles.title}>
+            Todas las aplicaciones de AED, <span className={styles.titleAccent}>en un solo lugar</span>
+          </h1>
+          <p className={styles.lead}>
+            Accede a cada módulo con un único punto de entrada. Las nuevas aplicaciones se irán
+            habilitando aquí a medida que estén listas.
+          </p>
+
+          <div className={styles.toolbar}>
+            <label className={styles.search}>
+              <Search size={18} strokeWidth={2} aria-hidden="true" />
+              <input
+                type="search"
+                placeholder="Buscar aplicación…"
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+                aria-label="Buscar aplicación"
+              />
+            </label>
+            <div className={styles.stats}>
+              <span>
+                <strong>{totalDisponibles}</strong> disponible{totalDisponibles === 1 ? '' : 's'}
+              </span>
+              <span className={styles.statsSep} aria-hidden="true" />
+              <span>
+                <strong>{APPS.length - totalDisponibles}</strong> próximamente
+              </span>
+            </div>
           </div>
-          <TextInput
-            type="search"
-            className={styles.search}
-            placeholder="Buscar aplicación…"
-            aria-label="Buscar aplicación"
-            value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}
-          />
-        </div>
+        </section>
 
         {filtradas.length === 0 ? (
           <p className={styles.empty}>No hay aplicaciones que coincidan con “{busqueda}”.</p>
@@ -115,7 +142,12 @@ export default function App() {
             <Seccion titulo="Próximamente" apps={proximamente} />
           </>
         )}
-      </ReactLenis>
-    </div>
+      </main>
+
+      <footer className={styles.footer}>
+        <span>© {new Date().getFullYear()} AED</span>
+        <span>Plataforma AED</span>
+      </footer>
+    </>
   );
 }
