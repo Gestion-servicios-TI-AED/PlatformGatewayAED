@@ -33,7 +33,7 @@ si hace falta el razonamiento completo) — resumen:
 ## Landing (React + Vite)
 
 `gateway/` es una app React + Vite (mismo stack que las demás apps de AED,
-CSS Modules + tokens de marca + `lucide-react`). El `Dockerfile` la compila y
+tokens, `Badge` y `Field` copiados de la plantilla de diseño compartida, ver `DESIGN.md`). El `Dockerfile` la compila y
 sirve el resultado con nginx, que además hace el ruteo por path. El catálogo
 de tarjetas vive en `gateway/src/apps.js`: para habilitar una app, cambiar su
 `estado` a `'disponible'` y poner su `href`. Desarrollo: `cd gateway && npm

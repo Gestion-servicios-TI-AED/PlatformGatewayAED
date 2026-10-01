@@ -1,0 +1,458 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-07T21:00:00.000Z",
+  "title": "Design System: HRMS aed",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Azul Vibrante",
+        "canonical": "#232BED",
+        "tonalRamp": [
+          "#12175E",
+          "#171C82",
+          "#1B21A6",
+          "#1F26C9",
+          "#232BED",
+          "#4B51F0",
+          "#7B80F5",
+          "#B0B3FA"
+        ]
+      },
+      "accent-vibrant": {
+        "role": "secondary",
+        "displayName": "Verde Vibrante",
+        "canonical": "#23FF55",
+        "tonalRamp": [
+          "#054719",
+          "#0A6E29",
+          "#0F9938",
+          "#17C948",
+          "#23FF55",
+          "#5CFF7F",
+          "#93FFA9",
+          "#C9FFD3"
+        ],
+        "note": "Used as a raw fill only for the 6px status dot inside success badges (estado ACTIVO, contrato Vigente) -- the one deliberate exception to badges always using the desaturated -ink/-surface pair."
+      },
+      "brand-deep": {
+        "role": "secondary",
+        "displayName": "Azul Profundo",
+        "canonical": "#0B2D4D",
+        "tonalRamp": [
+          "#040F1A",
+          "#071C2D",
+          "#092540",
+          "#0A2946",
+          "#0B2D4D",
+          "#2E4E6E",
+          "#5A7590",
+          "#8FA7BC"
+        ]
+      },
+      "accent-deep": {
+        "role": "tertiary",
+        "displayName": "Verde Profundo",
+        "canonical": "#014145",
+        "tonalRamp": [
+          "#001010",
+          "#00201F",
+          "#00302F",
+          "#01393B",
+          "#014145",
+          "#2E6265",
+          "#5E8B8D",
+          "#9BBDBE"
+        ]
+      },
+      "bg": {
+        "role": "neutral",
+        "displayName": "App Canvas",
+        "canonical": "#F7F8FA"
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "canonical": "#FFFFFF"
+      },
+      "surface-sunken": {
+        "role": "neutral",
+        "displayName": "Surface Sunken",
+        "canonical": "#EEF1F5"
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Border",
+        "canonical": "#DEE3EA"
+      },
+      "border-strong": {
+        "role": "neutral",
+        "displayName": "Border Strong",
+        "canonical": "#C3CBD6"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#10151F",
+        "tonalRamp": [
+          "#0A0D13",
+          "#10151F",
+          "#2B3341",
+          "#545E70",
+          "#8891A0",
+          "#C3CBD6",
+          "#DEE3EA",
+          "#F7F8FA"
+        ]
+      },
+      "ink-secondary": {
+        "role": "neutral",
+        "displayName": "Ink Secondary",
+        "canonical": "#2B3341"
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Ink Muted",
+        "canonical": "#545E70"
+      },
+      "success-ink": {
+        "role": "success",
+        "displayName": "Success (Verde Profundo)",
+        "canonical": "#014145"
+      },
+      "success-surface": {
+        "role": "success",
+        "displayName": "Success Surface",
+        "canonical": "#DFF3EA"
+      },
+      "warning-ink": {
+        "role": "warning",
+        "displayName": "Warning Ink",
+        "canonical": "#8A5A00"
+      },
+      "warning-surface": {
+        "role": "warning",
+        "displayName": "Warning Surface",
+        "canonical": "#FFF3D6"
+      },
+      "danger-ink": {
+        "role": "danger",
+        "displayName": "Danger Ink",
+        "canonical": "#9F2B25"
+      },
+      "danger-surface": {
+        "role": "danger",
+        "displayName": "Danger Surface",
+        "canonical": "#FBE9E7"
+      },
+      "info-ink": {
+        "role": "info",
+        "displayName": "Info Ink (Azul Vibrante)",
+        "canonical": "#232BED"
+      },
+      "info-surface": {
+        "role": "info",
+        "displayName": "Info Surface",
+        "canonical": "#E8E9FD"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page-level titles only (e.g. record name on a detail page, module titles). Never marketing-hero scale."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section / tab-panel headers within a page."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card headers, modal titles, table section headers."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Form field values, paragraph text, modal copy. WCAG floor -- never smaller than 1rem."
+      },
+      "data": {
+        "displayName": "Data",
+        "purpose": "Dense table cells only (0.875rem) -- the one place text legitimately drops below Body size."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Table column headers and form field labels only -- functional micro-label, not a decorative eyebrow."
+      }
+    },
+    "shadows": [
+      {
+        "name": "floating",
+        "value": "0 8px 24px rgba(16, 21, 31, 0.12)",
+        "purpose": "Dropdowns, popovers, date pickers, info tooltips -- anything detached from normal page flow."
+      },
+      {
+        "name": "modal",
+        "value": "0 16px 48px rgba(16, 21, 31, 0.18)",
+        "purpose": "Dialogs and multi-step creation wizards."
+      },
+      {
+        "name": "toast",
+        "value": "0 6px 20px rgba(16, 21, 31, 0.15)",
+        "purpose": "Transient notifications."
+      }
+    ],
+    "zIndex": [
+      {
+        "name": "dropdown",
+        "value": 100
+      },
+      {
+        "name": "sticky",
+        "value": 200
+      },
+      {
+        "name": "modal-backdrop",
+        "value": 300
+      },
+      {
+        "name": "modal",
+        "value": 310
+      },
+      {
+        "name": "toast",
+        "value": 400
+      },
+      {
+        "name": "tooltip",
+        "value": 500,
+        "note": "Top of the scale -- a tooltip must never be occluded by a modal, toast, or sticky nav open at the same time."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Default ease-out-quint for state transitions, hover/focus feedback, panel open/close."
+      },
+      {
+        "name": "duration-fast",
+        "value": "120ms",
+        "purpose": "Hover/focus micro-feedback."
+      },
+      {
+        "name": "duration-standard",
+        "value": "200ms",
+        "purpose": "Panel/tab transitions, modal open."
+      },
+      {
+        "name": "scroll-easing",
+        "value": "lenis (lenis/react, root={false})",
+        "purpose": "Wraps every independently-scrolling content pane so wheel/touch scroll eases continuously instead of stepping section-by-section. Native scrollTop under the hood (position: sticky stays compatible); sidebar nav and fixed chrome stay outside it; respects prefers-reduced-motion by default."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main call-to-action; one per view.",
+      "html": "<button class=\"ds-btn-primary\">Guardar</button>",
+      "css": ".ds-btn-primary { background: #232BED; color: #FFFFFF; font-family: Raleway, system-ui, sans-serif; font-weight: 500; font-size: 1.0625rem; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; transition: background 120ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-btn-primary:hover { background: #1B21C4; } .ds-btn-primary:focus-visible { outline: 2px solid #232BED; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Secondary action alongside a primary button (e.g. 'Cancelar').",
+      "html": "<button class=\"ds-btn-secondary\">Cancelar</button>",
+      "css": ".ds-btn-secondary { background: #FFFFFF; color: #10151F; font-family: Raleway, system-ui, sans-serif; font-weight: 500; font-size: 1.0625rem; padding: 10px 20px; border: 1px solid #C3CBD6; border-radius: 6px; cursor: pointer; transition: background 120ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-btn-secondary:hover { background: #EEF1F5; } .ds-btn-secondary:focus-visible { outline: 2px solid #232BED; outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Standard form field used across wizards and section forms.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-label\">Primer nombre</span><input class=\"ds-input\" type=\"text\" placeholder=\"Ej. Juan\" /></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 6px; } .ds-label { font-family: Raleway, system-ui, sans-serif; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.03em; text-transform: uppercase; color: #2B3341; } .ds-input { font-family: Raleway, system-ui, sans-serif; font-size: 1rem; color: #10151F; background: #EEF1F5; border: 1px solid #DEE3EA; border-radius: 6px; padding: 9px 12px; transition: border-color 120ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-input:focus { outline: none; border-color: #232BED; box-shadow: 0 0 0 2px rgba(35, 43, 237, 0.25); }"
+    },
+    {
+      "name": "Status Badge - Success",
+      "kind": "chip",
+      "refersTo": "badge-success",
+      "description": "Estado = Activo, approved request.",
+      "html": "<span class=\"ds-badge ds-badge-success\">Activo</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; font-family: Raleway, system-ui, sans-serif; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.03em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; } .ds-badge-success { background: #DFF3EA; color: #014145; }"
+    },
+    {
+      "name": "Status Badge - Warning",
+      "kind": "chip",
+      "refersTo": "badge-warning",
+      "description": "Pending approval, expiring soon.",
+      "html": "<span class=\"ds-badge ds-badge-warning\">Por vencer</span>",
+      "css": ".ds-badge-warning { display: inline-flex; align-items: center; font-family: Raleway, system-ui, sans-serif; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.03em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: #FFF3D6; color: #8A5A00; }"
+    },
+    {
+      "name": "Status Badge - Danger",
+      "kind": "chip",
+      "refersTo": "badge-danger",
+      "description": "Retirado, sanción, documento vencido.",
+      "html": "<span class=\"ds-badge ds-badge-danger\">Retirado</span>",
+      "css": ".ds-badge-danger { display: inline-flex; align-items: center; font-family: Raleway, system-ui, sans-serif; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.03em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: #FBE9E7; color: #9F2B25; }"
+    },
+    {
+      "name": "Underline Tab Item",
+      "kind": "nav",
+      "refersTo": "tab-item",
+      "description": "Horizontal section nav for short sets (<=~8 sections). Underline indicator, scrolls horizontally when the list overflows.",
+      "html": "<button class=\"ds-tab ds-tab-active\">Contrato</button>",
+      "css": ".ds-tab { font-family: \"TT Firs Neue\", Inter, system-ui, sans-serif; font-weight: 500; font-size: 0.9375rem; color: #2B3341; background: none; border: none; padding: 10px 4px; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: color 120ms cubic-bezier(0.22, 1, 0.36, 1), border-color 120ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-tab:hover { color: #10151F; } .ds-tab-active { color: #10151F; border-bottom-color: #232BED; }"
+    },
+    {
+      "name": "Vertical Section Nav Item",
+      "kind": "nav",
+      "refersTo": "section-nav-item",
+      "description": "Sticky vertical nav for detail views past ~8 sections. 224px sticky column beside the content card; collapses to a horizontal scrollable row below ~900px.",
+      "html": "<a class=\"ds-section-nav-item ds-section-nav-item-active\" href=\"#\">Salario</a>",
+      "css": ".ds-section-nav-item { display: block; font-family: Raleway, system-ui, sans-serif; font-weight: 500; font-size: 1rem; color: #2B3341; text-decoration: none; padding: 9px 12px; border-radius: 6px; transition: background 120ms cubic-bezier(0.22, 1, 0.36, 1), color 120ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-section-nav-item:hover { background: #EEF1F5; color: #10151F; } .ds-section-nav-item-active { background: #EEF1F5; color: #232BED; font-weight: 600; }"
+    },
+    {
+      "name": "Global Edit Toggle",
+      "kind": "button-group",
+      "refersTo": "view-edit-mode",
+      "description": "Record-editing views open read-only. One Editar button top-right of the page header (in line with the title, outside the content card) switches the whole page into edit mode; swaps to Cancelar + Guardar. Never repeated per section -- driven by one boolean gating every section's <fieldset disabled>.",
+      "html": "<div class=\"ds-edit-controls\"><button class=\"ds-btn-secondary\">Cancelar</button><button class=\"ds-btn-primary\" form=\"profile-edit-form\">Guardar</button></div>",
+      "css": ".ds-edit-controls { display: flex; gap: 8px; flex-shrink: 0; }"
+    },
+    {
+      "name": "Info Tooltip",
+      "kind": "tooltip",
+      "refersTo": "info-tooltip-trigger",
+      "description": "Explains a non-obvious KPI/chart on hover or keyboard focus (never hover-only). Trigger is a 14px 'i' glyph right after the title. Bubble: Ink bg / Surface text, Data typography, rounded-sm, Floating shadow, z-index tooltip (500, top of the scale).",
+      "html": "<span class=\"ds-tooltip-trigger\" tabindex=\"0\" aria-describedby=\"kpi-1-tip\"><svg width=\"14\" height=\"14\">...</svg><span role=\"tooltip\" id=\"kpi-1-tip\" class=\"ds-tooltip-bubble\">Explicacion breve de que muestra este dato.</span></span>",
+      "css": ".ds-tooltip-trigger { position: relative; display: inline-flex; color: #545E70; cursor: help; } .ds-tooltip-trigger:hover, .ds-tooltip-trigger:focus-visible { color: #232BED; } .ds-tooltip-bubble { position: absolute; z-index: 500; bottom: calc(100% + 8px); left: 50%; transform: translate(-50%, 4px); max-width: 220px; background: #10151F; color: #FFFFFF; font-family: Raleway, system-ui, sans-serif; font-size: 0.875rem; line-height: 1.45; padding: 8px 16px; border-radius: 6px; box-shadow: 0 8px 24px rgba(16, 21, 31, 0.12); opacity: 0; pointer-events: none; transition: opacity 120ms cubic-bezier(0.22, 1, 0.36, 1), transform 120ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-tooltip-trigger:hover .ds-tooltip-bubble, .ds-tooltip-trigger:focus-visible .ds-tooltip-bubble { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }"
+    },
+    {
+      "name": "Sidebar Nav Item",
+      "kind": "nav",
+      "refersTo": "nav-item",
+      "description": "Primary left-nav item; active state uses Azul Profundo, a small contained brand moment per the Rationed Brand Rule.",
+      "html": "<a class=\"ds-nav-item ds-nav-item-active\" href=\"#\">Empleados</a>",
+      "css": ".ds-nav-item { display: block; font-family: Raleway, system-ui, sans-serif; font-weight: 500; font-size: 0.9375rem; color: #2B3341; padding: 10px 14px; border-radius: 8px; text-decoration: none; transition: background 120ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-nav-item:hover { background: #EEF1F5; } .ds-nav-item-active { background: #0B2D4D; color: #FFFFFF; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Precise Ledger",
+    "overview": "A tool that behaves like a well-kept ledger, not a marketing surface: every screen is built to be scanned fast, trusted completely, and never ambiguous. aed's own brand identity is bold, dynamic, and vibrant (a signature green-to-blue gradient, electric blue, bright green) -- this product wears that identity as a precise accent, not as a wash across dense data screens. Color earns its place; most of the interface is calm, cool-tinted neutral so that the two moments of real color -- a primary action, a status badge, the login/empty-state gradient -- read as deliberate, not decorative. The product rejects two failure modes equally: the outdated enterprise look (dense gray forms, unlabeled tables, generic icon sets) and the generic AI-SaaS look (identical cards, gradient hero metrics, uppercase eyebrows, side-stripe borders).",
+    "keyCharacteristics": [
+      "Cool, blue-tinted neutral canvas -- never the warm cream/sand AI default",
+      "Azul Vibrante and Verde Vibrante appear only as precise accents, never as large fills",
+      "A record's detail view is the hub: sections, not scattered top-level CRUD screens -- underline tabs for short sets, sticky vertical nav past ~8 sections",
+      "Flat-by-default surfaces with tonal layering; shadows reserved for floating elements only",
+      "Responsive motion without choreography -- confidence through clarity, not spectacle",
+      "Every independently-scrolling pane eases its scroll via Lenis so long pages read as one continuous surface",
+      "Record-editing views open read-only; one global Editar control gates the whole page into edit mode at once"
+    ],
+    "rules": [
+      {
+        "name": "The No-Cream Rule",
+        "body": "Off-white aed (#F0ECE6) is a warm print neutral from the brand manual -- right for business cards and letterhead, wrong for a screen. It never appears as the app canvas.",
+        "section": "colors"
+      },
+      {
+        "name": "The Rationed Brand Rule",
+        "body": "Azul Vibrante and Verde Vibrante combined should never cover more than roughly 10% of any given screen's surface area.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Numerals Rule",
+        "body": "Any column of numbers (salarios, dias, cedulas, valores) uses font-variant-numeric: tabular-nums so digits align vertically.",
+        "section": "typography"
+      },
+      {
+        "name": "The Floating-Only Rule",
+        "body": "If it doesn't detach from the page's normal flow, it doesn't get a shadow. Depth is earned by z-index, not applied by default.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Fluid Scroll Rule",
+        "body": "Every independently-scrolling content pane is wrapped in Lenis (root={false}) so scroll input eases into a continuous glide instead of stepping section by section. Native scrollTop under the hood keeps position: sticky compatible. Sidebar nav and fixed chrome stay outside it. Respects prefers-reduced-motion by default.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Full-Width Form Rule",
+        "body": "Forms take the full content width, organized into horizontal rows of fields grouped by named section -- never a single narrow vertical field stack.",
+        "section": "components"
+      },
+      {
+        "name": "The View/Edit Mode Rule",
+        "body": "Record-editing views render read-only by default. One global Editar/Guardar/Cancelar control lives in the page header, never repeated per section -- driven by one shared boolean gating each section's fieldset disabled.",
+        "section": "components"
+      },
+      {
+        "name": "The Explain-on-Demand Rule",
+        "body": "A dense dashboard's KPIs and charts get their explanation via an Info Tooltip next to the title (hover + keyboard focus, role=tooltip), not via permanent caption text under every tile -- permanent captions on every tile is the identical-card-grids AI-SaaS tell wearing a data-viz costume. Reserve a permanent caption for context that's load-bearing to read the chart correctly at a glance.",
+        "section": "components"
+      },
+      {
+        "name": "The One-to-Many Selection Rule",
+        "body": "Any field assigning multiple items (a permission matrix, a multi-role picker, users assigned to a record, workflow approvers) uses CheckboxGroup.jsx (short fixed set of booleans, Surface Sunken auto-fill grid, no search needed) or CheckboxListSelect.jsx (long/growing/groupable list -- selected items as removable chips above a bordered searchable panel, own scroll) -- never a bare native <select multiple> (Ctrl/Cmd+click is not discoverable, no search, no compact view of the selection) and never an unstyled run-on paragraph of checkboxes wrapping by screen width."
+      },
+      {
+        "name": "The Pagination Rule",
+        "body": "Every server-paginated table uses Pagination.jsx (components/ui/) -- same footer bar, same two buttons (\"‹ Anterior\" / \"Siguiente ›\"), same \"Mostrando X-Y de Z\" + \"Pagina X de Y\" wording in every project. Never a hand-rolled pager, never numbered page buttons with ellipsis. Self-hides when total===0 or a single page."
+      },
+      {
+        "name": "The Fluid Width Rule",
+        "body": "No page, card, or section gets a hardcoded max-width that caps it below the available viewport -- a view adapts to however wide the screen is, never assumes a fixed width. Legitimate max-width only on content narrow by nature (search box, filter dropdown, tooltip bubble, login split-screen text column, a 75ch prose paragraph) -- never on a .page/.card/container wrapping a table or a form .row. Content wider than any viewport scrolls horizontally inside its own container (overflow-x: auto), never clipped."
+      },
+      {
+        "name": "The Row Icon Actions Rule",
+        "body": "Every table/list row's Editar and Activar/Inactivar actions render as icon buttons (EditIconButton/ToggleActivoIconButton, components/ui/RowIconButtons.jsx), never as text buttons reading \"Editar\"/\"Inactivar\"/\"Activar\" -- pencil icon for Editar, circle+line (inactivar, turns danger-red on hover) or circle+cross (activar) for the toggle, 32x32px, in a flex .actionsCell aligned right. One shared component, not copy-pasted SVG per table -- the gap this closes: a table that already had icons would hand-duplicate the same SVG markup instead of importing a shared one, and a table built later would default back to plain text buttons because nothing forced the icon convention. A page-level edit-mode toggle (the big \"Editar\"/\"Guardar\"/\"Cancelar\" button pair at the top of a detail page) is a different pattern (see The View/Edit Mode Rule) and stays text -- this rule is only for per-row actions inside a table or list."
+      }
+    ],
+    "dos": [
+      "Do keep the app canvas cool-tinted neutral (#F7F8FA family) -- never the warm cream/sand AI default.",
+      "Do reserve Azul Vibrante and Verde Vibrante for actions, status, and identity moments.",
+      "Do use underline tabs for short section sets and a sticky vertical nav once a detail view outgrows a tab row.",
+      "Do use tabular-nums on every numeric table column.",
+      "Do give every loading/empty/error state real, deliberate content.",
+      "Do let list/table views and forms use the full content width, with form fields grouped into horizontal rows by named section.",
+      "Do gate an existing record's fields behind one global Editar/Guardar/Cancelar control in the page header.",
+      "Do wrap every independently-scrolling content pane in Lenis so scrolling eases continuously.",
+      "Do explain a non-obvious KPI or chart with an Info Tooltip next to its title instead of a permanent caption under every tile.",
+      "Do use CheckboxGroup.jsx (short fixed set) or CheckboxListSelect.jsx (long/searchable/groupable set) for any one-to-many assignment field -- see the One-to-Many Selection Rule -- never a native <select multiple> or an unstyled checkbox paragraph.",
+      "Do use Pagination.jsx for every server-paginated table -- same buttons/wording everywhere (see the Pagination Rule).",
+      "Do let every page/card/section size itself to the actual viewport -- max-width only on content narrow by nature, never on a page or a form/table wrapper (see the Fluid Width Rule)."
+    ],
+    "donts": [
+      "Don't replicate the SAP/Oracle-2000s look: dense gray forms, generic icons, unlabeled cramped tables.",
+      "Don't ship generic AI-SaaS scaffolding: identical cards, gradient hero metrics, uppercase eyebrows, side-stripe borders.",
+      "Don't let the interface feel like a playful consumer app.",
+      "Don't use Off-white aed (#F0ECE6) as a screen background.",
+      "Don't add a shadow to anything that isn't floating above the page.",
+      "Don't apply gradient-text anywhere -- the aed gradient is a graphic accent element, never a text treatment.",
+      "Don't repeat an Editar/Guardar/Cancelar control inside every tab or section of a detail view -- one global control per page.",
+      "Don't grow the accent-vibrant status dot into a stripe, larger chip, or full badge fill -- it stays a 6px indicator.",
+      "Don't implement a multi-item assignment field as a bare <select multiple> or as an unstyled, wrapping paragraph of checkboxes -- use CheckboxGroup.jsx or CheckboxListSelect.jsx depending on list size (see the One-to-Many Selection Rule).",
+      "Don't hand-roll a pagination footer per page or use numbered page buttons with ellipsis -- use Pagination.jsx (see the Pagination Rule).",
+      "Don't cap a page, card, or table/form wrapper with a fixed max-width (see the Fluid Width Rule)."
+    ]
+  }
+}

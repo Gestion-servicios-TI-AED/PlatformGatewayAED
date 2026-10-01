@@ -1,28 +1,48 @@
 @import './tokens.css';
 
-*,
-*::before,
-*::after {
+/* Gradacion aed (DESIGN.md, "Gradacion aed"): token de linea/acento, nunca un
+   fondo. Aun no vive en tokens.css de la plantilla compartida -- se declara
+   aca con los mismos 3 valores del manual de marca. */
+:root {
+  --color-gradient-mid: #20a7a1;
+  --color-gradient-end: #22e76a;
+  --gradient-aed: linear-gradient(90deg, var(--color-primary) 0%, var(--color-gradient-mid) 50%, var(--color-gradient-end) 100%);
+}
+
+/* TT Firs Neue (tipografia de marca) todavia sin archivos de fuente: el stack
+   de --font-display ya la nombra primero y cae a Inter/system-ui. */
+
+* {
   box-sizing: border-box;
 }
 
-html {
-  -webkit-text-size-adjust: 100%;
+html,
+body,
+#root {
+  height: 100%;
+  /* El unico scroll real vive en .scrollArea (Fluid Scroll Rule: Lenis es
+     dueno de ese contenedor). */
+  overflow: hidden;
 }
 
 body {
   margin: 0;
-  min-height: 100vh;
-  font-family: var(--font-body);
-  color: var(--color-text);
+  min-height: 100dvh;
   background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line);
+  font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
 }
 
-#root {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
 }
 
 @media (prefers-reduced-motion: reduce) {
