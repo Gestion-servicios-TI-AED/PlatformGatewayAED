@@ -346,18 +346,8 @@ sparingly and only for elements that are genuinely floating above the page flow.
 ### Named Rules
 **The Floating-Only Rule.** If it doesn't detach from the page's normal flow (a card, a table
 row, a form section), it doesn't get a shadow. Depth is earned by z-index, not applied by
-default.
-
-**The Portal Landing Exception** (2026-10-01, explicit user decision on Plataforma AED — the
-gateway's home page). The landing is a marketing-adjacent portal, not a dense working screen,
-and the user chose the richer card system over the flat one after trying both. For this one
-page only, the rules below are relaxed: cards may carry a soft shadow and a lift-on-hover
-(Floating-Only Rule), live cards may carry a 3px Gradación aed line on their top edge and the
-page a 4px Gradación aed bar above the header (a 3rd/4th settled location), the hero may use
-a Display-scale headline with a short eyebrow label, and cards may be the icon + heading +
-text pattern the Don'ts list otherwise rejects. Everything else (neutral tokens, typography
-families, status colors, fluid width) still applies. **This exception does not carry over to
-the apps themselves** — dense screens inside HRMS/Solicitudes/etc. keep every original rule.
+default. The one exception is the **Showcase Card** (§5), which is allowed a resting shadow
+and a hover lift.
 
 ### Motion & Scroll
 
@@ -558,6 +548,32 @@ many sections there are, not by developer preference:
   has nowhere to unfold sideways in a narrow layout, same reasoning as the primary nav's
   flyout-to-inline fallback below).
 
+### Showcase Cards (launchers, portals, app/module pickers)
+(2026-10-01, explicit user decision on Plataforma AED — the gateway's home page — after trying
+both the flat card system and this one; this is now the shared standard for that kind of
+surface.)
+
+**What it's for:** a screen whose job is to *choose where to go* — an app launcher, a module
+picker, a landing page of destinations. It is the one place the "generic card grid" is
+sanctioned, because here the card **is** the content. It is **not** for data-dense working
+screens (tables, forms, record detail): those keep flat Surface panels and every other rule in
+this document.
+
+| Element | Spec |
+|---|---|
+| Grid | `repeat(auto-fill, minmax(300px, 1fr))`, `gap: 20px`, full content width (Fluid Width Rule applies) |
+| Card | Surface background, 1px Border, `{rounded.lg}` (16px), `padding: 22px`, a resting soft shadow (`0 1px 2px rgba(16,21,31,.05)`) |
+| Live card (destination available) | 3px **Gradación aed** line along the top edge; on hover/focus-visible: `translateY(-4px)`, Border Strong, and a brand-tinted lift shadow (`0 18px 40px -12px rgba(35,43,237,.22)`), `duration-standard` + `ease-standard`; the icon tile flips to Azul Vibrante with white glyph |
+| Soon card (not available yet) | transparent background, dashed Border Strong, no shadow, not clickable (`aria-disabled`), muted icon and title |
+| Icon tile | 46px, `{rounded.md}`-ish (12px), Surface Sunken, `lucide-react` 22px, `currentColor` |
+| Status | pill at the card's top-right: **Disponible** (success surface/ink with a leading dot) or **Próximamente** (Surface Sunken / Ink Muted with a clock glyph) |
+| Body | small-caps area label (Label typography), Title-scale name, Body-scale one-line description |
+| Footer | hairline divider, then "Abrir aplicación ↗" in Azul Vibrante (live) or "En preparación" in Ink Muted (soon); the arrow nudges 3px up-right on hover |
+| Hero | allowed above the grid: a short eyebrow label, a Display-scale headline, one lead paragraph, a search pill and live/soon counters; a 4px Gradación aed bar may sit above the header |
+
+Rules that still apply: only one gradient *line* per card (never a fill), no gradient text,
+motion under `prefers-reduced-motion` is disabled, focus-visible keeps the 2px Azul Vibrante ring.
+
 ### Info Tooltip
 - **What it's for:** a KPI, chart, or any other compact/abstracted piece of data whose meaning
   isn't self-evident from its label alone (how it's calculated, what's included/excluded,
@@ -654,12 +670,12 @@ column), use a two-panel pattern instead of a single scrolling list:
   icon sets, unlabeled cramped tables.
 - **Don't** ship generic AI-SaaS scaffolding: identical icon+heading+text card grids, gradient
   hero metric tiles, uppercase eyebrows above every section, side-stripe colored borders on
-  cards/alerts.
+  cards/alerts. (Exception: Showcase Cards on launcher/portal screens, §5 — and only there.)
 - **Don't** let the interface feel like a playful consumer app — no bouncy/elastic motion, no
   mascot-like illustration, no gratuitous color on data-dense screens.
 - **Don't** use Off-white aed (#F0ECE6) as a screen background — it's a print-collateral color.
 - **Don't** add a shadow to anything that isn't floating above the page (see Floating-Only
-  Rule).
+  Rule) — except Showcase Cards (§5).
 - **Don't** apply gradient-text (`background-clip: text`) anywhere — the aed gradient is a
   graphic accent element (per the brand manual), never a text treatment.
 - **Don't** repeat an Editar/Guardar/Cancelar control inside every tab or section of a detail

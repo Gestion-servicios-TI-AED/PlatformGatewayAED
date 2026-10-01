@@ -33,8 +33,8 @@ body {
 }
 
 /* Alias y tokens que la landing usa y que tokens.css (plantilla compartida)
-   nombra distinto o no define. La landing es una excepcion documentada en
-   DESIGN.md ("The Portal Landing Exception"). */
+   nombra distinto o no define. La landing usa el sistema Showcase Cards, documentado en
+   DESIGN.md (seccion 5, "Showcase Cards"). */
 :root {
   --color-text: var(--color-ink);
   --color-text-muted: var(--color-ink-muted);
