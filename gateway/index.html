@@ -4,20 +4,202 @@
   <meta charset="utf-8" />
   <title>Plataforma AED</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    body { font-family: system-ui, sans-serif; max-width: 32rem; margin: 4rem auto; padding: 0 1.5rem; color: #1a1a1a; }
-    h1 { font-size: 1.5rem; }
-    ul { padding-left: 1.25rem; }
-    li { margin: 0.5rem 0; }
-    p.note { color: #666; font-size: 0.9rem; }
+    :root {
+      --primary: #232bed;
+      --primary-hover: #1b21c4;
+      --bg: color-mix(in srgb, var(--primary) 5%, white);
+      --surface: #ffffff;
+      --sunken: color-mix(in srgb, var(--primary) 8%, white);
+      --border: color-mix(in srgb, var(--primary) 14%, white);
+      --border-strong: color-mix(in srgb, var(--primary) 28%, white);
+      --text: #12142e;
+      --muted: #5b5f7a;
+      --radius: 16px;
+      --success: #12805c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: Raleway, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    .bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 2rem;
+    }
+    .bar img { height: 32px; width: auto; display: block; }
+    .bar span { font-weight: 700; letter-spacing: 0.08em; font-size: 0.8rem; color: var(--muted); text-transform: uppercase; }
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #4a2fe0 55%, #7a3ad6 100%);
+      color: #fff;
+      padding: 3.5rem 2rem 4.5rem;
+    }
+    .hero-inner, main, .foot { max-width: 1120px; margin: 0 auto; width: 100%; }
+    .hero h1 { margin: 0 0 0.6rem; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.01em; }
+    .hero p { margin: 0; max-width: 40rem; font-size: 1.05rem; line-height: 1.55; opacity: 0.9; }
+    main { padding: 0 2rem 3rem; flex: 1; margin-top: -2.25rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      padding: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: inherit;
+      text-decoration: none;
+      box-shadow: 0 1px 2px rgba(18, 20, 46, 0.04);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+    a.card:hover, a.card:focus-visible {
+      transform: translateY(-3px);
+      border-color: var(--border-strong);
+      box-shadow: 0 12px 28px rgba(35, 43, 237, 0.14);
+      outline: none;
+    }
+    a.card:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 35%, white); }
+    .icon {
+      width: 48px; height: 48px;
+      display: grid; place-items: center;
+      border-radius: 12px;
+      background: var(--sunken);
+      color: var(--primary);
+    }
+    .icon svg { width: 24px; height: 24px; }
+    .card h2 { margin: 0; font-size: 1.1rem; font-weight: 700; }
+    .card p { margin: 0; color: var(--muted); font-size: 0.92rem; line-height: 1.5; flex: 1; }
+    .tag {
+      position: absolute; top: 1.25rem; right: 1.25rem;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.3rem 0.65rem; border-radius: 999px;
+    }
+    .tag.live { background: color-mix(in srgb, var(--success) 12%, white); color: var(--success); }
+    .tag.soon { background: var(--sunken); color: var(--muted); }
+    .cta { font-weight: 700; font-size: 0.9rem; color: var(--primary); display: inline-flex; gap: 0.4rem; align-items: center; }
+    a.card:hover .cta { color: var(--primary-hover); }
+    a.card:hover .cta span { transform: translateX(3px); }
+    .cta span { transition: transform 0.15s ease; }
+    .card.soon { background: color-mix(in srgb, var(--primary) 2%, white); border-style: dashed; cursor: default; }
+    .card.soon .icon { background: color-mix(in srgb, var(--muted) 10%, white); color: var(--muted); }
+    .card.soon h2 { color: #3b3f5c; }
+    .card.soon .cta { color: var(--muted); font-weight: 600; }
+    .foot { padding: 1.5rem 2rem 2rem; color: var(--muted); font-size: 0.8rem; }
+    @media (max-width: 600px) {
+      .bar, .hero, main, .foot { padding-left: 1.25rem; padding-right: 1.25rem; }
+    }
   </style>
 </head>
 <body>
-  <h1>Plataforma AED</h1>
-  <p>Punto de entrada unico. Por ahora es solo un listado -- el shell con navegacion compartida es una etapa aparte, todavia no construida.</p>
-  <ul>
-    <li><a href="/hrsm/">Recursos Humanos</a></li>
-  </ul>
-  <p class="note">Cada proyecto se agrega aca a medida que se conecta al gateway.</p>
+  <header>
+    <div class="bar">
+      <img src="/aed-logo.png" alt="AED" />
+      <span>Plataforma</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Plataforma AED</h1>
+      <p>Un solo punto de entrada a las aplicaciones de la organizaci&oacute;n. Elige el m&oacute;dulo al que quieres acceder.</p>
+    </div>
+  </section>
+
+  <main>
+    <div class="grid">
+
+      <a class="card" href="/hrsm/">
+        <span class="tag live">Disponible</span>
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h2>Recursos Humanos</h2>
+        <p>Gesti&oacute;n del talento, personal y procesos de RR.HH.</p>
+        <span class="cta">Abrir aplicaci&oacute;n <span>&rarr;</span></span>
+      </a>
+
+      <div class="card soon" aria-disabled="true">
+        <span class="tag soon">Pr&oacute;ximamente</span>
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg>
+        </div>
+        <h2>Solicitudes de Contrataci&oacute;n</h2>
+        <p>Solicitudes de contrataci&oacute;n directa e indirecta, con flujo de aprobaci&oacute;n.</p>
+        <span class="cta">Pr&oacute;ximamente</span>
+      </div>
+
+      <div class="card soon" aria-disabled="true">
+        <span class="tag soon">Pr&oacute;ximamente</span>
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg>
+        </div>
+        <h2>Cartera</h2>
+        <p>Seguimiento de cartera, cobros y estados de cuenta.</p>
+        <span class="cta">Pr&oacute;ximamente</span>
+      </div>
+
+      <div class="card soon" aria-disabled="true">
+        <span class="tag soon">Pr&oacute;ximamente</span>
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h8"/></svg>
+        </div>
+        <h2>Bases Presupuestales</h2>
+        <p>Construcci&oacute;n y control de bases de presupuesto de obra.</p>
+        <span class="cta">Pr&oacute;ximamente</span>
+      </div>
+
+      <div class="card soon" aria-disabled="true">
+        <span class="tag soon">Pr&oacute;ximamente</span>
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M9 7h7M9 11h7"/></svg>
+        </div>
+        <h2>Bit&aacute;cora de Obra</h2>
+        <p>Registro diario de avances, novedades y eventos en obra.</p>
+        <span class="cta">Pr&oacute;ximamente</span>
+      </div>
+
+      <div class="card soon" aria-disabled="true">
+        <span class="tag soon">Pr&oacute;ximamente</span>
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+        </div>
+        <h2>Centro de Aplicaciones Comerciales</h2>
+        <p>Herramientas para la gesti&oacute;n comercial y de ventas.</p>
+        <span class="cta">Pr&oacute;ximamente</span>
+      </div>
+
+      <div class="card soon" aria-disabled="true">
+        <span class="tag soon">Pr&oacute;ximamente</span>
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg>
+        </div>
+        <h2>OLIV</h2>
+        <p>Gesti&oacute;n del proyecto OLIV.</p>
+        <span class="cta">Pr&oacute;ximamente</span>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="foot">&copy; AED &middot; Plataforma AED</footer>
 </body>
 </html>

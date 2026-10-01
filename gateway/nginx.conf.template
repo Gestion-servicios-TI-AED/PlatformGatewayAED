@@ -35,6 +35,12 @@ server {
         try_files /index.html =404;
     }
 
+    # Logo de la landing (archivo estatico propio del gateway).
+    location = /aed-logo.png {
+        root /usr/share/nginx/html;
+        try_files /aed-logo.png =404;
+    }
+
     # --- RR.HH. (HRMS) ---
     # HRMS_UPSTREAM es el DOMINIO PUBLICO que Coolify le asigna a HRMS (ej.
     # xxxxx.tu-servidor.sslip.io), NO un nombre de red interna de Docker --
