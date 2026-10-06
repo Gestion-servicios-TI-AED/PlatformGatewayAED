@@ -33,7 +33,8 @@ export const APPS = [
     area: 'Finanzas',
     descripcion: 'Seguimiento de cartera, cobros y estados de cuenta.',
     icono: Wallet,
-    estado: 'proximamente',
+    estado: 'disponible',
+    href: '/cartera/',
   },
   {
     id: 'bases',

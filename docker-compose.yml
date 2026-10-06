@@ -37,11 +37,33 @@ services:
     expose:
       - "3000"
 
+  cartera:
+    build:
+      context: ../2. CARTERA
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: /cartera/api
+        VITE_BASE_PATH: /cartera/
+    environment:
+      # Mismas variables que backend/.env de Cartera (ver su README.md).
+      PGHOST: ${CARTERA_PGHOST}
+      PGPORT: ${CARTERA_PGPORT}
+      PGUSER: ${CARTERA_PGUSER}
+      PGPASSWORD: ${CARTERA_PGPASSWORD}
+      PGDATABASE: ${CARTERA_PGDATABASE}
+      CORS_ORIGIN: http://localhost:8080
+      JWT_SECRET: ${CARTERA_JWT_SECRET}
+      PRECALENTAR_CACHE: "false"
+    expose:
+      - "3000"
+
   gateway:
     build: ./gateway
     ports:
       - "8080:80"
     environment:
       HRMS_UPSTREAM: hrms:3000
+      CARTERA_UPSTREAM: cartera:3000
     depends_on:
       - hrms
+      - cartera

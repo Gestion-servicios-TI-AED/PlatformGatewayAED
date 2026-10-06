@@ -85,3 +85,24 @@ comentario en `nginx.conf.template`). Si en algún momento se ponen todas
 las apps bajo el mismo Project de Coolify, se podría volver a nombres de
 red interna, pero no es necesario: el dominio público funciona igual de
 bien y es más robusto a como esté organizado Coolify.
+
+## Conectar Cartera (2026-10-06)
+
+Cartera ya soporta el prefijo (`VITE_BASE_PATH`, `basename` del router y
+cookies propias `cartera_*`), asi que el cambio fue solo del lado del gateway:
+bloque `location /cartera/` en `nginx.conf.template` (con
+`client_max_body_size 50m` y timeouts de 300 s, porque Cartera sube Excel de
+hasta 50 MB y sincroniza con Zoho/HubSpot), tarjeta en `src/apps.js` y servicio
+`cartera` en `docker-compose.yml` para probar en local.
+
+**Orden de despliegue en Coolify (importante):**
+1. Cartera: agregar los build-args `VITE_API_BASE_URL=/cartera/api` y
+   `VITE_BASE_PATH=/cartera/` y redeployar (se incrustan al compilar). Mientras
+   tanto, al mismo dominio propio de Cartera sigue sirviendo la app con esos
+   valores, asi que conviene decidir si se mantiene su dominio directo o se
+   deja solo bajo el gateway.
+2. Gateway: definir la variable `CARTERA_UPSTREAM` (dominio publico de Cartera,
+   sin `https://`) **antes** de redeployar el gateway. Sin ella, nginx no arranca
+   (`${CARTERA_UPSTREAM}` queda vacio en el `proxy_pass`).
+3. Cartera: `CORS_ORIGIN` ya no importa para el acceso por el gateway (mismo
+   origen), pero mantenerlo en el dominio del gateway si se accede por ahi.
